@@ -27,7 +27,7 @@ const Board = () => {
   });
 
   const [currGen, setCurrGen] = useState(0);
-  const speedRef = useRef(800);
+  const speedRef = useRef(300);
   const [running, setRunning] = useState(false);
 
   const runningRef = useRef(running);
@@ -38,8 +38,7 @@ const Board = () => {
       return;
     }
     setGrid((g) => {
-      let isGrid = false;
-      isGrid = false;
+      let checkGrid = false;
       return produce(g, (gridCopy) => {
         for (let i = 0; i < numRows; i++) {
           for (let k = 0; k < numCols; k++) {
@@ -55,13 +54,13 @@ const Board = () => {
             if (neighbors < 2 || neighbors > 3) {
               gridCopy[i][k] = 0;
             } else if (g[i][k] === 0 && neighbors === 3) {
-              isGrid = true;
+              checkGrid = true;
               gridCopy[i][k] = 1;
             }
           }
         }
-        if (isGrid) {
-          setCurrGen((num) => num + 1);
+        if (checkGrid) {
+          setCurrGen((num) => num + .5);
         }
       });
     });
